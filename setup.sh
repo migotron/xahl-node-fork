@@ -157,6 +157,7 @@ fi
 FUNC_VARS_VARIABLE_CHECK(){
 if [  ! -f $SCRIPT_DIR/xahl_node.vars ]; then
     echo -e "$SCRIPT_DIR/xahl_node.vars file missing, generating a new one...${NC}"
+    mkdir -p $SCRIPT_DIR
     sudo cat <<EOF > $SCRIPT_DIR/xahl_node.vars
 vars_version="$version"
 # These are the default variables for the setup.sh script to use.
@@ -227,6 +228,7 @@ EOF
 fi
 
 source $SCRIPT_DIR/xahl_node.vars
+mkdir -p $SCRIPT_DIR
 touch $SCRIPT_DIR/.env
 source $SCRIPT_DIR/.env
 
@@ -243,7 +245,7 @@ if [ -z "$NGINX_PROXY_IP" ]; then
     echo -e "${GREEN}## ${YELLOW}xahl-node.vars file updated, by adding entry NGINX_PROXY_IP... ${NC}"
 fi
 if [ -z "$TOMLUPDATER_URL" ]; then
-    TOMLUPDATER_URL=78/ledger-live-toml-updating/node-dev/validator/update.py
+    TOMLUPDATER_URL=https://raw.githubusercontent.com/gadget78/ledger-live-toml-updating/node-dev/validator/update.py
     sudo sh -c "echo '\n# variables for toml updater' >> $SCRIPT_DIR/xahl_node.vars"
     sudo sh -c "echo 'TOMLUPDATER_URL=https://raw.githubusercontent.com/gadget78/ledger-live-toml-updating/node-dev/validator/update.py' >> $SCRIPT_DIR/xahl_node.vars"
     echo -e "${GREEN}## ${YELLOW}xahl-node.vars file updated, by adding entry TOMLUPDATER_URL... ${NC}"
@@ -1186,7 +1188,7 @@ footer a:hover {
 
 <footer>
     <div>
-        <a href="https://github.com/migotron/xahl-node" target="_blank">
+        <a href="https://github.com/gadget78/xahl-node" target="_blank">
             <img src="https://github.com/fluidicon.png" alt="GitHub" class="footer-icon">
             install script by gadget78, fork it on GitHub.
         </a>
@@ -1602,7 +1604,7 @@ footer a:hover {
 
 <footer>
     <div>
-        <a href="https://github.com/migotron/xahl-node" target="_blank">
+        <a href="https://github.com/gadget78/xahl-node" target="_blank">
             <img src="https://github.com/fluidicon.png" alt="GitHub" class="footer-icon">
             install script by gadget78, fork it on GitHub.
         </a>
@@ -2401,7 +2403,7 @@ FUNC_NODE_DEPLOY(){
     FUNC_CERTBOT_REQUEST;
 
     # setup a manual "update" command
-    sudo bash -c "echo 'bash -c \"\$(wget -qLO - https://raw.githubusercontent.com/migotron/xahl-node-fork/refs/heads/migotron-patch-2/setup.sh)\"' >/usr/bin/update"
+    sudo bash -c "echo 'bash -c \"\$(wget -qLO - https://raw.githubusercontent.com/gadget78/xahl-node/main/setup.sh)\"' >/usr/bin/update"
     sudo chmod +x /usr/bin/update
 
     echo
